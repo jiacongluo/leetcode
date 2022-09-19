@@ -28,24 +28,22 @@
  */
 
 function isValidBST(root: TreeNode | null): boolean {
-  return isValidBST2(root, null, null);
+  return recursion(root, null, null);
 }
-function isValidBST2(
+function recursion(
   root: TreeNode | null,
   min: TreeNode | null,
   max: TreeNode | null
 ): boolean {
-  if (root == null) {
+  if (!root) {
     return true;
   }
-  if (min != null && root.val < min.val) {
+  if (min && root.val <= min.val) {
     return false;
   }
-  if (max != null && root.val > max.val) {
+  if (max && root.val >= max.val) {
     return false;
   }
-  return (
-    isValidBST2(root.left, min, root) && isValidBST2(root.right, root, max)
-  );
+  return recursion(root.left, min, root) && recursion(root.right, root, max);
 }
 // @lc code=end
